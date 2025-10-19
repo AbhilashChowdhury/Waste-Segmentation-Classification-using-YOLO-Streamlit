@@ -17,10 +17,10 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 model = YOLO("best.pt")  # Ensure 'best.pt' is in the same folder
 
 # Streamlit title
-st.title("♻️ Waste Segmentation using YOLO")
+st.title("♻️ Waste Segmentation & Classification using YOLO")
 
 # File uploader
-uploaded_file = st.file_uploader("📤 Upload a waste image", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("📤 Upload an image to visualize segmentation and predicted waste types", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     # Load image
@@ -37,14 +37,11 @@ if uploaded_file is not None:
     # Run YOLOv8 segmentation model
     results = model(uploaded_path, project="predicts", name="output", save=True, exist_ok=True)
 
-    # Extract detected class names
     classes = results[0].names
     labels = set([classes[int(cls)] for cls in results[0].boxes.cls])
 
-    # Find the annotated (output) image
     annotated_path = os.path.join("predicts", "output", os.path.basename(uploaded_path))
 
-    # Create two columns for side-by-side display
     col1, col2 = st.columns(2)
 
     with col1:
