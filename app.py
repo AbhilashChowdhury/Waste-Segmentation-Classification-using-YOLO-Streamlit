@@ -17,7 +17,17 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 model = YOLO("best.pt")  # Ensure 'best.pt' is in the same folder
 
 # Streamlit title
-st.title("♻️ Waste Segmentation & Classification using YOLO")
+st.markdown("""
+    <h1 style="
+        color: white; 
+        text-align: center; 
+        font-size: 2.2rem; 
+        font-weight: 700; 
+        margin-bottom: 20px;
+    ">
+        ♻️ Waste Segmentation & Classification using YOLOv8
+    </h1>
+""", unsafe_allow_html=True)
 
 # File uploader
 uploaded_file = st.file_uploader("📤 Upload an image to visualize segmentation and predicted waste types", type=["jpg", "jpeg", "png"])
